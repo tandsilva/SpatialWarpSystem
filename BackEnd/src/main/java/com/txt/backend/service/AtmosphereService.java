@@ -1,8 +1,6 @@
 package com.txt.backend.service;
 
-import com.txt.backend.config.RabbitMQConfig;
 import com.txt.backend.dto.SystemAlert;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -12,10 +10,10 @@ public class AtmosphereService {
     private static final double IDEAL_OXYGEN_LEVEL = 20.5; // Ideal Oxygen %
     private static final double CRITICAL_OXYGEN_LEVEL = 19.5; // Critical Oxygen %
 
-    private final RabbitTemplate rabbitTemplate;
+    private final AlertSender alertSender;
 
-    public AtmosphereService(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
+    public AtmosphereService(AlertSender alertSender) {
+        this.alertSender = alertSender;
     }
 
     // Method to monitor oxygen levels
@@ -29,11 +27,7 @@ public class AtmosphereService {
                     .timestamp(LocalDateTime.now())
                     .build();
             
-            rabbitTemplate.convertAndSend(
-                    RabbitMQConfig.TELEMETRY_EXCHANGE, 
-                    "alert.critical.oxygen", 
-                    alert
-            );
+            alertSender.sendCriticalAlert(alert);
 
             return "CRITICAL: Oxygen level too low! Activating emergency protocols.";
         } else if (currentOxygenLevel < IDEAL_OXYGEN_LEVEL) {

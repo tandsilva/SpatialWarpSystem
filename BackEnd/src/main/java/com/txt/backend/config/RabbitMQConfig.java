@@ -7,8 +7,10 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile("!dev")
 public class RabbitMQConfig {
 
     public static final String CRITICAL_ALERTS_QUEUE = "space-station.critical.alerts";
