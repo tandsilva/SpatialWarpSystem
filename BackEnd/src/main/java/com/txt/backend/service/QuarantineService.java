@@ -49,7 +49,7 @@ public class QuarantineService {
             throw new QuarantineException("Quarantine with code " + quarantine.getCodeNumber() + " already exists");
         }
         
-        // Os valores padrão já são definidos no builder da entidade
+        // Default values are already defined in the entity builder
         
         if (userIds != null && !userIds.isEmpty()) {
             List<User> users = userRepository.findAllById(userIds);

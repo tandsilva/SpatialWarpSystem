@@ -18,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller REST para gestão de quarentena.
- * Lida com protocolos de emergência e isolamento de usuários.
+ * REST controller for quarantine management.
+ * Handles emergency protocols and user isolation.
  */
 @RestController
 @RequestMapping("/api/quarantines")
@@ -35,11 +35,11 @@ public class QuarantineController {
     }
 
     @PostMapping
-    @Operation(summary = "Iniciar uma nova quarentena", description = "Inicia uma nova quarentena com o protocolo de emergência especificado")
+        @Operation(summary = "Start a new quarantine", description = "Starts a new quarantine with the specified emergency protocol")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Quarentena iniciada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Parâmetros de quarentena inválidos"),
-            @ApiResponse(responseCode = "422", description = "Código de quarentena já existe")
+            @ApiResponse(responseCode = "201", description = "Quarantine started successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid quarantine parameters"),
+            @ApiResponse(responseCode = "422", description = "Quarantine code already exists")
     })
     public ResponseEntity<QuarantineResponse> startQuarantine(@Valid @RequestBody QuarantineRequest request) {
         logger.info("Starting quarantine with code: {}", request.codeNumber());
@@ -49,10 +49,10 @@ public class QuarantineController {
     }
 
     @GetMapping("/{codeNumber}")
-    @Operation(summary = "Obter quarentena por código", description = "Recupera detalhes da quarentena pelo código")
+        @Operation(summary = "Get quarantine by code", description = "Retrieves quarantine details by code")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Quarentena recuperada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Quarentena não encontrada")
+            @ApiResponse(responseCode = "200", description = "Quarantine retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Quarantine not found")
     })
     public ResponseEntity<QuarantineResponse> getByCode(@PathVariable String codeNumber) {
         logger.debug("Fetching quarantine: {}", codeNumber);
@@ -61,8 +61,8 @@ public class QuarantineController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar todas as quarentenas", description = "Recupera todas as quarentenas do sistema")
-    @ApiResponse(responseCode = "200", description = "Todas as quarentenas recuperadas com sucesso")
+    @Operation(summary = "List all quarantines", description = "Retrieves all quarantines in the system")
+    @ApiResponse(responseCode = "200", description = "All quarantines retrieved successfully")
     public ResponseEntity<List<QuarantineResponse>> getAll() {
         logger.debug("Fetching all quarantines");
         List<QuarantineResponse> quarantines = quarantineService.getAllQuarantines().stream()
@@ -72,8 +72,8 @@ public class QuarantineController {
     }
 
     @GetMapping("/active")
-    @Operation(summary = "Listar quarentenas ativas", description = "Recupera apenas as quarentenas ativas")
-    @ApiResponse(responseCode = "200", description = "Quarentenas ativas recuperadas com sucesso")
+    @Operation(summary = "List active quarantines", description = "Retrieves only active quarantines")
+    @ApiResponse(responseCode = "200", description = "Active quarantines retrieved successfully")
     public ResponseEntity<List<QuarantineResponse>> getAllActive() {
         logger.debug("Fetching all active quarantines");
         List<QuarantineResponse> quarantines = quarantineService.getAllActiveQuarantines().stream()
@@ -83,11 +83,11 @@ public class QuarantineController {
     }
 
     @PostMapping("/{codeNumber}/end")
-    @Operation(summary = "Encerrar quarentena", description = "Encerra uma quarentena se o protocolo permitir")
+        @Operation(summary = "End quarantine", description = "Ends a quarantine if the protocol allows it")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Quarentena encerrada com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Quarentena não encontrada"),
-            @ApiResponse(responseCode = "422", description = "Quarentena não pode ser interrompida")
+            @ApiResponse(responseCode = "204", description = "Quarantine ended successfully"),
+            @ApiResponse(responseCode = "404", description = "Quarantine not found"),
+            @ApiResponse(responseCode = "422", description = "Quarantine cannot be interrupted")
     })
     public ResponseEntity<Void> endQuarantine(@PathVariable String codeNumber) {
         logger.info("Ending quarantine: {}", codeNumber);
@@ -96,10 +96,10 @@ public class QuarantineController {
     }
 
     @GetMapping("/user/{userId}")
-    @Operation(summary = "Verificar usuário em quarentena", description = "Verifica se um usuário específico está atualmente em quarentena")
+        @Operation(summary = "Check user quarantine status", description = "Checks whether a specific user is currently in quarantine")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Status do usuário verificado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+            @ApiResponse(responseCode = "200", description = "User status checked successfully"),
+            @ApiResponse(responseCode = "404", description = "User not found")
     })
     public ResponseEntity<Boolean> isUserInQuarantine(@PathVariable Long userId) {
         logger.debug("Checking quarantine status for user: {}", userId);

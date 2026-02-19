@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/telemetry")
-@Tag(name = "Telemetria e Sensores", description = "Endpoints para simular leituras de sensores e testar alertas via Kafka e RabbitMQ")
+@Tag(name = "Telemetry and Sensors", description = "Endpoints to simulate sensor readings and test alerts via Kafka and RabbitMQ")
 public class TelemetryController {
 
     private final AtmosphereService atmosphereService;
@@ -24,32 +24,32 @@ public class TelemetryController {
     }
 
     /**
-     * Envia dados brutos de telemetria para o tópico do Kafka.
-     * Útil para testar se o fluxo de mensagens está funcionando.
+        * Sends raw telemetry data to the Kafka topic.
+        * Useful for testing whether the message flow is working.
      */
     @PostMapping("/kafka/send")
-    @Operation(summary = "Enviar Telemetria (Kafka)", description = "Envia um pacote de dados para o tópico Kafka 'spaceship.telemetry.v1'")
+        @Operation(summary = "Send Telemetry (Kafka)", description = "Sends a data packet to the Kafka topic 'spaceship.telemetry.v1'")
     public ResponseEntity<String> sendTelemetryToKafka(@RequestBody TelemetryData data) {
         if (data.getTimestamp() == null) {
             data.setTimestamp(LocalDateTime.now().toString());
         }
 
         kafkaProducerService.sendTelemetry(data);
-        return ResponseEntity.ok("Telemetria enviada para o Kafka!");
+        return ResponseEntity.ok("Telemetry sent to Kafka!");
     }
 
     /**
-     * Simula a leitura de um sensor de oxigênio.
-     * Se o nível estiver crítico (< 19.5%), dispara um alerta via RabbitMQ.
+     * Simulates an oxygen sensor reading.
+     * If the level is critical (< 19.5%), triggers an alert via RabbitMQ.
      */
     @PostMapping("/simulate/oxygen")
-    @Operation(summary = "Injetar Leitura de Oxigênio", description = "Simula uma leitura de sensor. Se o nível for < 19.5%, dispara um alerta no RabbitMQ.")
+    @Operation(summary = "Inject Oxygen Reading", description = "Simulates a sensor reading. If the level is < 19.5%, triggers an alert in RabbitMQ.")
     public ResponseEntity<String> simulateOxygenLevel(@RequestParam double oxygenPercentage) {
         
-        // Chama a lógica de serviço.
-        // Se oxigênio < 19.5, vai publicar no RabbitMQ.
+        // Call the service logic.
+        // If oxygen < 19.5, it will publish to RabbitMQ.
         String status = atmosphereService.monitorOxygenLevel(oxygenPercentage, 0.04);
         
-        return ResponseEntity.ok("Leitura do Sensor Processada. Status do Sistema: " + status);
+        return ResponseEntity.ok("Sensor reading processed. System status: " + status);
     }
 }

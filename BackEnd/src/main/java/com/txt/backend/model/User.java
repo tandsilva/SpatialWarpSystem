@@ -20,19 +20,19 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Identificador único do usuário
-    private String name; // Nome do usuário
-    private String password; // Senha para autenticação
+    private Long id; // Unique user identifier
+    private String name; // User name
+    private String password; // Password for authentication
 
     @Enumerated(EnumType.STRING)
-    private Role role; // Papel do usuário no sistema (ex.: CAPTAIN, CREW)
+    private Role role; // User role in the system (e.g., CAPTAIN, CREW)
 
-    private boolean isActive; // Indica se o usuário está ativo
-    private boolean isBlocked; // Indica se o usuário está bloqueado devido a infecção ou parasita
-    private String crew; // Identifica a tripulação à qual o usuário pertence
+    private boolean isActive; // Indicates whether the user is active
+    private boolean isBlocked; // Indicates whether the user is blocked due to infection or parasite
+    private String crew; // Identifies the crew the user belongs to
 
     @Enumerated(EnumType.STRING)
-    private ContaminationStatus contaminationStatus; // Status de contaminação do usuário
+    private ContaminationStatus contaminationStatus; // User contamination status
 
-    // Métodos adicionais podem ser adicionados conforme necessário
+    // Additional methods can be added as needed
 }

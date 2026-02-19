@@ -13,12 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller REST para operações e monitoramento da nave espacial.
- * Fornece endpoints para status da nave, simulação de dobra e verificações de sistema.
+ * REST controller for spaceship operations and monitoring.
+ * Provides endpoints for ship status, warp simulation, and system checks.
  */
 @RestController
 @RequestMapping("/api/ship")
-@Tag(name = "Gestão da Nave", description = "Operações para gerenciar os sistemas da nave espacial")
+@Tag(name = "Ship Management", description = "Operations for managing spaceship systems")
 public class ShipController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShipController.class);
@@ -30,13 +30,13 @@ public class ShipController {
     }
 
     /**
-     * Obtém o status abrangente da nave incluindo todos os sistemas.
+         * Retrieves the comprehensive ship status including all systems.
      */
     @PostMapping("/status")
-    @Operation(summary = "Obter status da nave", description = "Retorna o status detalhado de todos os sistemas da nave")
+        @Operation(summary = "Get ship status", description = "Returns detailed status for all ship systems")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Status recuperado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Parâmetros de requisição inválidos")
+            @ApiResponse(responseCode = "200", description = "Status retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid request parameters")
     })
     public ResponseEntity<ShipStatusResponse> getShipStatus(@Valid @RequestBody ShipStatusRequest request) {
         logger.info("Received ship status request");
@@ -51,13 +51,13 @@ public class ShipController {
     }
 
     /**
-     * Simula a operação do motor de dobra.
+         * Simulates warp drive operation.
      */
     @PostMapping("/warp/simulate")
-    @Operation(summary = "Simular motor de dobra", description = "Calcula parâmetros de dobra para viagem espacial")
+        @Operation(summary = "Simulate warp drive", description = "Calculates warp parameters for space travel")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Dobra simulada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Parâmetros de dobra inválidos")
+            @ApiResponse(responseCode = "200", description = "Warp simulated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid warp parameters")
     })
     public ResponseEntity<warpSimulationResponse> simulateWarp(@Valid @RequestBody WarpSimulationRequest request) {
         logger.info("Simulating warp drive with velocity: {}", request.bubbleVelocity());
@@ -66,13 +66,13 @@ public class ShipController {
     }
 
     /**
-     * Verifica se a velocidade atual está dentro dos limites de segurança.
+         * Checks whether the current speed is within safety limits.
      */
     @PostMapping("/speed/check")
-    @Operation(summary = "Verificar limite de velocidade", description = "Valida se a velocidade atual é segura")
+        @Operation(summary = "Check speed limit", description = "Validates whether the current speed is safe")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Velocidade verificada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Valor de velocidade inválido")
+            @ApiResponse(responseCode = "200", description = "Speed checked successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid speed value")
     })
     public ResponseEntity<String> checkSpeed(@Valid @RequestBody SpeedCheckRequest request) {
         logger.debug("Checking speed: {}", request.currentSpeed());
@@ -81,13 +81,13 @@ public class ShipController {
     }
 
     /**
-     * Monitora os níveis de oxigênio e CO2 da atmosfera.
+         * Monitors oxygen and CO2 levels in the atmosphere.
      */
     @PostMapping("/atmosphere/monitor")
-    @Operation(summary = "Monitorar atmosfera", description = "Verifica níveis de oxigênio e dióxido de carbono")
+        @Operation(summary = "Monitor atmosphere", description = "Checks oxygen and carbon dioxide levels")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Atmosfera monitorada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Parâmetros de atmosfera inválidos")
+            @ApiResponse(responseCode = "200", description = "Atmosphere monitored successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid atmosphere parameters")
     })
     public ResponseEntity<String> monitorAtmosphere(@Valid @RequestBody AtmosphereCheckRequest request) {
         logger.debug("Monitoring atmosphere - O2: {}, CO2: {}", request.oxygenLevel(), request.co2Level());
@@ -96,13 +96,13 @@ public class ShipController {
     }
 
     /**
-     * Prioriza sistemas de energia baseado no nível atual.
+         * Prioritizes energy systems based on the current level.
      */
     @GetMapping("/energy/prioritize")
-    @Operation(summary = "Priorizar energia", description = "Determina quais sistemas devem ser priorizados")
+        @Operation(summary = "Prioritize energy", description = "Determines which systems should be prioritized")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Energia priorizada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Nível de energia inválido")
+            @ApiResponse(responseCode = "200", description = "Energy prioritized successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid energy level")
     })
     public ResponseEntity<String> prioritizeEnergy(@RequestParam Double currentEnergy) {
         logger.debug("Prioritizing energy with level: {}", currentEnergy);
@@ -111,13 +111,13 @@ public class ShipController {
     }
 
     /**
-     * Executa análise de detecção de falhas via IA.
+         * Runs AI-based failure detection analysis.
      */
     @PostMapping("/ai/detect-failures")
-    @Operation(summary = "Detectar falhas", description = "Usa IA para detectar falhas no sistema")
+        @Operation(summary = "Detect failures", description = "Uses AI to detect system failures")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Detecção de falhas executada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Parâmetros de sistema inválidos")
+            @ApiResponse(responseCode = "200", description = "Failure detection executed successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid system parameters")
     })
     public ResponseEntity<String> detectFailures(@Valid @RequestBody ShipStatusRequest request) {
         logger.info("Running AI failure detection");

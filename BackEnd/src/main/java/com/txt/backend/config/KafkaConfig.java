@@ -8,14 +8,14 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaConfig {
 
-    // Nome do Tópico para Telemetria da Nave
+    // Topic name for ship telemetry
     public static final String TELEMETRY_TOPIC = "spaceship.telemetry.v1";
 
     @Bean
     public NewTopic telemetryTopic() {
-        // Cria o tópico automaticamente se não existir.
-        // partitions(3): Permite paralelismo (3 consumidores podem ler ao mesmo tempo)
-        // replicas(1): Apenas 1 cópia dos dados (para dev/local)
+        // Creates the topic automatically if it does not exist.
+        // partitions(3): Enables parallelism (3 consumers can read at the same time)
+        // replicas(1): Only 1 data copy (for dev/local)
         return TopicBuilder.name(TELEMETRY_TOPIC)
                 .partitions(3)
                 .replicas(1)

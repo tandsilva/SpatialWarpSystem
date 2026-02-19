@@ -342,3 +342,7 @@ Plano de Voo para "Base Residencial" (Próximos Passos):
 
 Status da Sessão: Pausado aguardando rede sem restrições.
 --------------------------------------------------------------------------------
+
+PREFERÊNCIAS DO USUÁRIO:
+- O usuário ODEIA Docker Compose. Utilizar comandos docker individuais.
+

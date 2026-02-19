@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("!dev")
+@Profile("!dev") // Only configures RabbitMQ when NOT in 'dev'
 public class RabbitMQConfig {
 
     public static final String CRITICAL_ALERTS_QUEUE = "space-station.critical.alerts";

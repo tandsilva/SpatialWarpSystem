@@ -8,24 +8,24 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 /**
- * Serviço responsável por consumir (ler) mensagens do Kafka.
- * Simula o painel de controle da missão recebendo os dados em tempo real.
+ * Service responsible for consuming (reading) Kafka messages.
+ * Simulates the mission control dashboard receiving real-time data.
  */
 public class KafkaConsumerService {
 
-    // groupId distingue quem está lendo. Vários serviços podem ler o mesmo tópico se tiverem groupIds diferentes.
-    // Se outro serviço usar o mesmo groupId, o Kafka divide a carga (balanceamento).
+    // groupId identifies who is reading. Multiple services can read the same topic if they use different groupIds.
+    // If another service uses the same groupId, Kafka splits the load (balancing).
     @KafkaListener(topics = KafkaConfig.TELEMETRY_TOPIC, groupId = "mission-control-dashboard")
     public void listen(String message) {
-        // Aqui chega a string JSON crua. Em um sistema real, converteríamos de volta para Objeto (Deserialização).
+        // Raw JSON string arrives here. In a real system, we would convert it back to an object (deserialization).
         log.info("Kafka Recebeu: {}", message);
         
-        // Simulação de processamento (ex: salvar no banco, atualizar dashboard via WebSocket)
+        // Processing simulation (e.g., save to DB, update dashboard via WebSocket)
         processTelemetry(message);
     }
 
     private void processTelemetry(String data) {
-        // Lógica de negócio aqui...
-        // log.debug("Processando telemetria em background...");
+        // Business logic here...
+        // log.debug("Processing telemetry in background...");
     }
 }

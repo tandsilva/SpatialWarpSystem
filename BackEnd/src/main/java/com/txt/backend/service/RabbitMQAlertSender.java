@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile("!dev")
+@Profile("!dev") // Real RabbitMQ only outside 'dev'
 public class RabbitMQAlertSender implements AlertSender {
 
     private final RabbitTemplate rabbitTemplate;

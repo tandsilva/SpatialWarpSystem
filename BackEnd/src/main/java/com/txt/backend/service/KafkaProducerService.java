@@ -13,28 +13,28 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 /**
- * Serviço responsável por produzir mensagens para o Kafka.
- * Atua como um "Emissor" de dados de telemetria da nave.
+ * Service responsible for producing messages to Kafka.
+ * Acts as a telemetry data publisher for the ship.
  */
 public class KafkaProducerService {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final ObjectMapper objectMapper; // Para converter objeto Java em JSON String
+    private final ObjectMapper objectMapper; // Converts Java objects to JSON strings
 
     /**
-     * Envia os dados de telemetria para o tópico do Kafka.
+     * Sends telemetry data to the Kafka topic.
      * 
-     * @param data Objeto contendo os dados do sensor.
+     * @param data Object containing sensor data.
      */
     public void sendTelemetry(TelemetryData data) {
         try {
-            // Converte o objeto TelemetryData para uma String JSON
+            // Convert TelemetryData object to a JSON string
             String jsonMessage = objectMapper.writeValueAsString(data);
             
-            // Envia para o tópico definido em KafkaConfig. 
-            // O segundo parâmetro (data.getSensorId()) é a CHAVE (Key) da mensagem.
-            // Usar a mesma chave garante que todas as mensagens desse sensor vão para a mesma partição,
-            // mantendo a ordem correta de leitura.
+            // Send to the topic defined in KafkaConfig.
+            // The second parameter (data.getSensorId()) is the message KEY.
+            // Using the same key ensures all messages from that sensor go to the same partition,
+            // preserving read order.
             kafkaTemplate.send(KafkaConfig.TELEMETRY_TOPIC, data.getSensorId(), jsonMessage);
             
             log.info("Kafka Enviou [Sensor: {}]: {}", data.getSensorId(), jsonMessage);

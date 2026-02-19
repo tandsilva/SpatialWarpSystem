@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WarpSimulationRepository extends JpaRepository<WarpSimulation, Long> {
-    // Métodos personalizados podem ser adicionados aqui, se necessário
+    // Custom methods can be added here, if needed
 }

@@ -96,17 +96,17 @@ public class Quarantine {
     private Long version = 0L;
 
     /**
-     * Verifica se a quarentena pode ser encerrada.
+     * Checks whether the quarantine can be ended.
      * 
-     * @return true se a quarentena puder ser interrompida
+     * @return true if the quarantine can be interrupted
      */
     public boolean canEndQuarantine() {
         return !nonInterruptible;
     }
 
     /**
-     * Calcula e define o tempo estimado de término baseado no protocolo.
-     * Executado automaticamente antes de persistir ou atualizar.
+     * Calculates and sets the estimated end time based on the protocol.
+     * Automatically executed before persisting or updating.
      */
     @PrePersist
     @PreUpdate
@@ -117,9 +117,9 @@ public class Quarantine {
     }
 
     /**
-     * Verifica se o período de quarentena expirou.
+        * Checks whether the quarantine period has expired.
      * 
-     * @return true se o tempo estimado já passou
+        * @return true if the estimated end time has passed
      */
     public boolean hasExpired() {
         if (estimatedEndTime == null) {
@@ -129,9 +129,9 @@ public class Quarantine {
     }
 
     /**
-     * Obtém as horas restantes de quarentena.
+        * Gets the remaining quarantine hours.
      * 
-     * @return número de horas restantes, ou 0 se já expirou
+        * @return number of remaining hours, or 0 if already expired
      */
     public long getRemainingHours() {
         if (estimatedEndTime == null || hasExpired()) {
@@ -141,9 +141,9 @@ public class Quarantine {
     }
 
     /**
-     * Adiciona um usuário à lista de quarentena.
+        * Adds a user to the quarantine list.
      * 
-     * @param user usuário a ser adicionado
+        * @param user user to be added
      */
     public void addUser(User user) {
         if (users == null) {
@@ -155,9 +155,9 @@ public class Quarantine {
     }
 
     /**
-     * Remove um usuário da lista de quarentena.
+        * Removes a user from the quarantine list.
      * 
-     * @param user usuário a ser removido
+        * @param user user to be removed
      */
     public void removeUser(User user) {
         if (users != null) {

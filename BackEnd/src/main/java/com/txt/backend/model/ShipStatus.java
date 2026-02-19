@@ -15,16 +15,16 @@ public class ShipStatus {
     private double oxygenLevel;
     private String postWarpLocation;
 
-    // Novos campos baseados no arquivo aldrin.txt
-    private double currentSpeed; // Velocidade atual da nave
-    private double maxSpeed; // Velocidade máxima permitida (velocidade da luz)
-    private boolean warpDriveActive; // Status da dobra espacial
-    private double warpEnergyRequired; // Energia necessária para dobra
-    private boolean atmosphereGeneratorActive; // Status do gerador de atmosfera
-    private double co2Level; // Nível de CO2
-    private boolean autoNavigationActive; // Navegação automática ativa
-    private String emergencyProtocol; // Protocolo de emergência ativo
-    private boolean aiAssistanceActive; // Assistência de IA ativa
-    private int droidsAvailable; // Número de droids disponíveis
+    // New fields based on aldrin.txt
+    private double currentSpeed; // Current ship speed
+    private double maxSpeed; // Maximum allowed speed (speed of light)
+    private boolean warpDriveActive; // Warp drive status
+    private double warpEnergyRequired; // Energy required for warp
+    private boolean atmosphereGeneratorActive; // Atmosphere generator status
+    private double co2Level; // CO2 level
+    private boolean autoNavigationActive; // Automatic navigation active
+    private String emergencyProtocol; // Active emergency protocol
+    private boolean aiAssistanceActive; // AI assistance active
+    private int droidsAvailable; // Number of available droids
 
 }

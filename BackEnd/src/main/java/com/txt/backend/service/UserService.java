@@ -20,23 +20,23 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // Método para criar um novo usuário
+    // Method to create a new user
     public User createUser(User user) {
         validateUser(user);
         return userRepository.save(user);
     }
 
-    // Método para buscar um usuário por ID
+    // Method to fetch a user by ID
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    // Método para listar todos os usuários
+    // Method to list all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // Método para atualizar um usuário
+    // Method to update a user
     public User updateUser(Long id, User updatedUser) {
         return userRepository.findById(id).map(existingUser -> {
             existingUser.setName(updatedUser.getName());
@@ -49,7 +49,7 @@ public class UserService {
         }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
-    // Método para deletar um usuário
+    // Method to delete a user
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException("User not found with id " + id);
@@ -57,14 +57,14 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // Método para verificar se um usuário está em quarentena
+    // Method to check if a user is in quarantine
     public boolean isUserInQuarantine(Long id) {
         return userRepository.findById(id)
                 .map(user -> ContaminationStatus.QUARANTINED.equals(user.getContaminationStatus()))
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
-    // Método para bloquear um usuário
+    // Method to block a user
     public void blockUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setBlocked(true);
@@ -72,7 +72,7 @@ public class UserService {
         });
     }
 
-    // Método para desbloquear um usuário
+    // Method to unblock a user
     public void unblockUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setBlocked(false);
@@ -80,7 +80,7 @@ public class UserService {
         });
     }
 
-    // Método para validar um usuário antes de salvar
+    // Method to validate a user before saving
     private void validateUser(User user) {
         if (user.getName() == null || user.getName().isEmpty()) {
             throw new IllegalArgumentException("User name cannot be null or empty");
@@ -90,13 +90,13 @@ public class UserService {
         }
     }
 
-    // Exemplo de método usando Virtual Threads para operações assíncronas
+    // Example method using virtual threads for asynchronous operations
     public void processUsersConcurrently(List<Long> userIds) {
         userIds.forEach(userId -> executor.execute(() -> {
             try {
                 Optional<User> user = userRepository.findById(userId);
                 user.ifPresent(u -> {
-                    // Processar o usuário aqui
+                    // Process user here
                     System.out.println("Processando usuário: " + u.getName());
                 });
             } catch (Exception e) {

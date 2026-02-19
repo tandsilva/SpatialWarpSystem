@@ -25,11 +25,11 @@ public class EnergyManagementService {
     // Method to simulate energy consumption
     public double simulateEnergyConsumption(boolean warpActive, boolean gravityActive,
                                            boolean atmosphereActive, int crewSize) {
-        double baseConsumption = 100; // Consumo base em kW
+        double baseConsumption = 100; // Base consumption in kW
         double warpConsumption = warpActive ? 10000 : 0;
         double gravityConsumption = gravityActive ? 500 : 0;
         double atmosphereConsumption = atmosphereActive ? 200 : 0;
-        double crewConsumption = crewSize * 10; // Consumo por tripulação
+        double crewConsumption = crewSize * 10; // Crew consumption
 
         return baseConsumption + warpConsumption + gravityConsumption + atmosphereConsumption + crewConsumption;
     }

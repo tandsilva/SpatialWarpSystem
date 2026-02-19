@@ -5,9 +5,11 @@ import com.txt.backend.dto.SystemAlert;
 import com.txt.backend.model.AlertHistory;
 import com.txt.backend.repository.AlertRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("!dev") // Desabilita o listener RabbitMQ no perfil 'dev'
 public class CentralCommandListener {
 
     private final AIService aiService;

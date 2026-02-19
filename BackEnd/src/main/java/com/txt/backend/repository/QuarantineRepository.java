@@ -10,15 +10,15 @@ import java.util.Optional;
 @Repository
 public interface QuarantineRepository extends JpaRepository<Quarantine, Long> {
 
-    // Buscar todas as quarentenas ativas
+    // Find all active quarantines
     List<Quarantine> findByActiveTrue();
 
-    // Buscar quarentenas por laboratório
+    // Find quarantines by lab
     List<Quarantine> findByLabId(String labId);
     
-    // Buscar quarentena por código
+    // Find quarantine by code
     Optional<Quarantine> findByCodeNumber(String codeNumber);
     
-    // Verificar se existe quarentena com código
+    // Check whether a quarantine exists with the given code
     boolean existsByCodeNumber(String codeNumber);
 }
